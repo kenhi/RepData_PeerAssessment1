@@ -146,7 +146,7 @@ median(imputedSteps)
 ## Are there differences in activity patterns between weekdays and weekends?
 
 
-* Create a new factor variable in the dataset with two levels -- "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
+####1) Create a new factor variable in the dataset with two levels -- "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
 
 
 ```r
@@ -155,10 +155,18 @@ imputedData$weekdays <- ifelse(imputedData$weekdays %in% c("Saturday", "Sunday")
     "weekday")
 library(plyr)
 average <- ddply(imputedData, .(interval, weekdays), summarise, steps = mean(steps))
+```
+
+####2) Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
+
+
+```r
 library(lattice)
 xyplot(steps ~ interval | weekdays, data = average, layout = c(1, 2), type = "l", 
     xlab = "Interval", ylab = "Number of steps")
 ```
 
-![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11.png) 
+![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12.png) 
 
+library(knitr)
+knit2html("PA1_template.Rmd")
